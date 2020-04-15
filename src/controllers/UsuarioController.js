@@ -1,5 +1,5 @@
 module.exports = app => {
-    const { Usuario, Rol, RolesUsuario } = app.config.db.models;
+    const { Usuario, Rol } = app.config.db.models;
 
     const crearUsuario = async (req, res) => {
         // const { email, username, password } = req.body;
@@ -9,12 +9,17 @@ module.exports = app => {
         // }
 
         try {
-            const usuario = await Usuario.findOne({ where: { username: 'Estevenjaviier' } });
-            const rol = await Rol.findOne({ where: { nombre: 'estudiante' } });
+            // const usuario = await Usuario.findOne({ where: { email: 'a@a.com' } });
+            // const rol = await Rol.findOne({ where: { nombre: 'admin' } });
 
-            const RolesUsuario = await usuario.addRol(rol);
+            // const RolesUsuario = await usuario.addRol(rol);
 
-            res.status(201).json(RolesUsuario);
+            const d = await Usuario.findAll({
+                include: { model: Rol, attributes: ['nombre'] },
+                attributes: ['username']
+            })
+
+            res.status(200).json(d);
 
         } catch (err) {
             console.log(err);

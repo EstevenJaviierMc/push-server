@@ -9,11 +9,14 @@ module.exports = app => {
     const { APP_PORT } = process.env;
 
     sequelize.sync({ force: false }).then(() => {
-        io.on('connection', (socket) => {
+        io.on('connection', function (socket) {
             console.log(`a user connected: ${socket.id}`);
-
             socket.on('disconnect', () => {
                 console.log(`a user disconnected: ${socket.id}`);
+            });
+
+            socket.on('new-op', function (msg) {
+                socket.broadcast.emit('new-remote-op', msg);
             });
         });
 

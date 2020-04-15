@@ -18,13 +18,13 @@ module.exports = (sequelize, DataType) => {
     });
 
     Usuario.associate = (models) => {
-        Usuario.belongsToMany(models.Rol, {
-            through: 'RolesUsuario',
-            foreignKey: {
-                name: 'RolId',
-                allowNull: false
-            }
-        });
+        // Usuario.belongsToMany(models.Rol, {
+        //     through: 'RolesUsuario',
+        //     foreignKey: {
+        //         name: 'UsuarioId',
+        //         allowNull: false
+        //     }
+        // });
     };
 
     return Usuario;
